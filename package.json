@@ -1,0 +1,24 @@
+{
+  "name": "@paziresh24/splunk-event",
+  "version": "1.2.0",
+  "description": "send splunk event util",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc",
+    "prepare": "npm run build",
+    "release": "np"
+  },
+  "author": "AmirhBeigi",
+  "license": "ISC",
+  "keywords": [
+    "splunk",
+    "event",
+    "splunk-event"
+  ],
+  "dependencies": {
+    "axios": "^0.26.0"
+  },
+  "devDependencies": {
+    "np": "^7.6.0"
+  }
+}
