@@ -8,7 +8,8 @@
     "prepare": "npm run build",
     "release": "np"
   },
-  "author": "AmirhBeigi",
+  "repository": "git@github.com:paziresh24/splunk-event.git",
+  "author": "https://github.com/AmirhBeigi",
   "license": "ISC",
   "keywords": [
     "splunk",
