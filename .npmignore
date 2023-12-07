@@ -1,5 +1,6 @@
 # Source files
 src
+node_modules
 
 # TS config fie
 tsconfig.json

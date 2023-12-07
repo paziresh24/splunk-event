@@ -16,7 +16,7 @@
     "splunk-event"
   ],
   "dependencies": {
-    "axios": "^0.26.0"
+    "axios": "^0.26.1"
   },
   "devDependencies": {
     "np": "^7.6.0"

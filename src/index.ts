@@ -12,6 +12,12 @@ interface SendEventSplunkTypes {
   event: object;
 }
 
+interface SendBatchEventSplunkTypes {
+  group: string;
+  type: string;
+  events: object[];
+}
+
 export const splunk = {
   create: ({ baseUrl, token, constant }: CreateSplunkTypes) => {
     return {
@@ -27,6 +33,25 @@ export const splunk = {
               ...event,
             },
           },
+          {
+            headers: {
+              Authorization: `Splunk ${token}`,
+            },
+          }
+        );
+      },
+      sendBatchEvent: ({ group, type, events }: SendBatchEventSplunkTypes) => {
+        return axios.post(
+          `${baseUrl}/services/collector`,
+          events.map((event) => ({
+            sourcetype: "_json",
+            event: {
+              event_group: group,
+              event_type: type,
+              ...constant,
+              ...event,
+            },
+          })),
           {
             headers: {
               Authorization: `Splunk ${token}`,
