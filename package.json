@@ -1,6 +1,6 @@
 {
   "name": "@paziresh24/splunk-event",
-  "version": "1.2.0",
+  "version": "2.1.0",
   "description": "send splunk event util",
   "main": "index.js",
   "scripts": {
@@ -15,9 +15,6 @@
     "event",
     "splunk-event"
   ],
-  "dependencies": {
-    "axios": "^0.26.1"
-  },
   "devDependencies": {
     "np": "^7.6.0"
   }

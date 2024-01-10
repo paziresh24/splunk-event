@@ -1,5 +1,3 @@
-import axios from "axios";
-
 interface CreateSplunkTypes {
   baseUrl: string;
   token: string;
@@ -21,29 +19,14 @@ interface SendBatchEventSplunkTypes {
 export const splunk = {
   create: ({ baseUrl, token, constant }: CreateSplunkTypes) => {
     return {
-      sendEvent: ({ group, type, event }: SendEventSplunkTypes) => {
-        return axios.post(
-          `${baseUrl}/services/collector`,
-          {
-            sourcetype: "_json",
-            event: {
-              event_group: group,
-              event_type: type,
-              ...constant,
-              ...event,
-            },
+      sendEvent: async ({ group, type, event }: SendEventSplunkTypes) => {
+        const response = await fetch(`${baseUrl}/services/collector`, {
+          method: "POST",
+          headers: {
+            Authorization: `Splunk ${token}`,
+            "Content-Type": "application/json",
           },
-          {
-            headers: {
-              Authorization: `Splunk ${token}`,
-            },
-          }
-        );
-      },
-      sendBatchEvent: ({ group, type, events }: SendBatchEventSplunkTypes) => {
-        return axios.post(
-          `${baseUrl}/services/collector`,
-          events.map((event) => ({
+          body: JSON.stringify({
             sourcetype: "_json",
             event: {
               event_group: group,
@@ -51,13 +34,30 @@ export const splunk = {
               ...constant,
               ...event,
             },
-          })),
-          {
-            headers: {
-              Authorization: `Splunk ${token}`,
-            },
-          }
-        );
+          }),
+        });
+        return response.json();
+      },
+      sendBatchEvent: async ({ group, type, events }: SendBatchEventSplunkTypes) => {
+        const response = await fetch(`${baseUrl}/services/collector`, {
+          method: "POST",
+          headers: {
+            Authorization: `Splunk ${token}`,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(
+            events.map((event) => ({
+              sourcetype: "_json",
+              event: {
+                event_group: group,
+                event_type: type,
+                ...constant,
+                ...event,
+              },
+            }))
+          ),
+        });
+        return response.json();
       },
     };
   },
